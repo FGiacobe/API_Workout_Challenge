@@ -29,3 +29,11 @@ class CentroTreinamento(BaseSchema):
             max_length=30,
         ),
     ]
+
+
+class CtIn(CentroTreinamento):
+    pass
+
+
+class CtOut(CentroTreinamento):
+    pass

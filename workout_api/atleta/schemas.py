@@ -4,7 +4,7 @@
 from typing import Annotated
 from pydantic import Field, PositiveFloat
 
-from WORKOUT_API.workout_api import atleta
+from workout_api import atleta
 from workout_api.contrib.schemas import BaseSchema, OutMixin
 
 

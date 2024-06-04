@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import DateTime, Float, ForeignKey, Integer, String
+from sqlalchemy import Float, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from traitlets import Int
 
@@ -16,7 +16,7 @@ class AtletaModels(BaseModel):
     peso: Mapped[float] = mapped_column(Float, nullable=False)
     altura: Mapped[float] = mapped_column(Float, nullable=False)
     sexo: Mapped[str] = mapped_column(String(1), nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(datetime, nullable=False)
     categoria: Mapped["CategoriaModels"] = relationship(back_populates="atleta")
     categoria_id: Mapped[Int] = mapped_column(ForeignKey("categorias.pk_id"))
     centro_treinamento: Mapped["CentroTreinamentoModels"] = relationship(

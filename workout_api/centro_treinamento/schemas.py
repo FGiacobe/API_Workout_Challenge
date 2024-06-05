@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from pydantic import Field
+from pydantic import UUID4, Field
 from workout_api.contrib.schemas import BaseSchema
 
 
@@ -31,9 +31,15 @@ class CentroTreinamento(BaseSchema):
     ]
 
 
+class CtAtleta(BaseSchema):
+    nome: Annotated[
+        str, Field(description="Nome do CT", examples=["CT King"], max_length=20)
+    ]
+
+
 class CtIn(CentroTreinamento):
     pass
 
 
 class CtOut(CentroTreinamento):
-    pass
+    id: Annotated[UUID4, Field(description='Identificador do CT')]

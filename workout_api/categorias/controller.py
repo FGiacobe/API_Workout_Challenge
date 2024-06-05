@@ -3,7 +3,7 @@ from fastapi import APIRouter, Body, HTTPException, status
 from pydantic import UUID4
 from sqlalchemy.future import select
 
-from workout_api.categorias.models import CategoriaModels
+from workout_api.categorias.models import CategoriasModel
 from workout_api.categorias.schemas import CategoriaIn, CategoriaOut
 from workout_api.contrib.dependencies import DatabaseDependency
 
@@ -21,7 +21,7 @@ async def post(
 ) -> CategoriaOut:
 
     categoria_out = CategoriaOut(id=uuid4(), **categoria_in.model_dump())
-    categoria_model = CategoriaModels(**categoria_out.model_dump())
+    categoria_model = CategoriasModel(**categoria_out.model_dump())
 
     db_session.add(categoria_model)
     await db_session.commit()
@@ -37,7 +37,7 @@ async def post(
 )
 async def query(db_session: DatabaseDependency) -> list[CategoriaOut]:
     categorias: list[CategoriaOut] = (
-        (await db_session.execute(select(CategoriaModels))).scalars().all()
+        (await db_session.execute(select(CategoriasModel))).scalars().all()
     )
     return categorias
 
@@ -50,7 +50,7 @@ async def query(db_session: DatabaseDependency) -> list[CategoriaOut]:
 )
 async def query_id(id: UUID4, db_session: DatabaseDependency) -> CategoriaOut:
     categoria: CategoriaOut = (
-        await db_session.execute(select(CategoriaModels).filter_by(id=id))
+        (await db_session.execute(select(CategoriasModel).filter_by(id=id)))
         .scalars()
         .first()
     )

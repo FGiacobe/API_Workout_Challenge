@@ -3,7 +3,7 @@ from fastapi import APIRouter, Body, HTTPException, status
 from pydantic import UUID4
 from sqlalchemy import select
 
-from workout_api.centro_treinamento.models import CentroTreinamentoModels
+from workout_api.centro_treinamento.models import CentrosTreinamentoModel
 from workout_api.centro_treinamento.schemas import CtIn, CtOut
 from workout_api.contrib.dependencies import DatabaseDependency
 
@@ -18,7 +18,7 @@ router = APIRouter()
 )
 async def post(db_session: DatabaseDependency, ct_in: CtIn = Body(...)) -> CtOut:
     ct_out = CtOut(id=uuid4(), **ct_in.model_dump())
-    ct_model = CentroTreinamentoModels(**ct_out.model_dump())
+    ct_model = CentrosTreinamentoModel(**ct_out.model_dump())
 
     db_session.add(ct_model)
     await db_session.commit()
@@ -34,7 +34,7 @@ async def post(db_session: DatabaseDependency, ct_in: CtIn = Body(...)) -> CtOut
 )
 async def query(db_session: DatabaseDependency) -> list[CtOut]:
     ct_list: list[CtOut] = (
-        (await db_session.execute(select(CentroTreinamentoModels))).scalars().all()
+        (await db_session.execute(select(CentrosTreinamentoModel))).scalars().all()
     )
     return ct_list
 
@@ -47,7 +47,7 @@ async def query(db_session: DatabaseDependency) -> list[CtOut]:
 )
 async def query_id(id: UUID4, db_session: DatabaseDependency) -> CtOut:
     ct_selected: CtOut = (
-        (await db_session.execute(select(CentroTreinamentoModels).filter_by(id=id)))
+        (await db_session.execute(select(CentrosTreinamentoModel).filter_by(id=id)))
         .scalars()
         .first()
     )

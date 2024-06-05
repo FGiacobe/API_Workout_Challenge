@@ -4,7 +4,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from workout_api.contrib.models import BaseModel
 
 
-class AtletaModels(BaseModel):
+class AtletasModel(BaseModel):
     __tablename__ = "atletas"
 
     pk_id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -15,9 +15,9 @@ class AtletaModels(BaseModel):
     altura: Mapped[float] = mapped_column(Float, nullable=False)
     sexo: Mapped[str] = mapped_column(String(1), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
-    categoria: Mapped["CategoriaModels"] = relationship(back_populates="atleta")
+    categoria: Mapped["CategoriasModel"] = relationship(back_populates="atleta")
     categoria_id: Mapped[int] = mapped_column(ForeignKey("categorias.pk_id"))
-    centro_treinamento: Mapped["CentroTreinamentoModels"] = relationship(
+    centro_treinamento: Mapped["CentrosTreinamentoModel"] = relationship(
         back_populates="atleta"
     )
     centro_treinamento_id: Mapped[int] = mapped_column(

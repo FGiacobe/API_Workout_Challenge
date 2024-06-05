@@ -42,4 +42,4 @@ class CtIn(CentroTreinamento):
 
 
 class CtOut(CentroTreinamento):
-    id: Annotated[UUID4, Field(description='Identificador do CT')]
+    id: Annotated[UUID4, Field(description="Identificador do CT")]

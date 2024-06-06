@@ -6,4 +6,3 @@ create-migrations:
 
 run-migrations:
 	@PYTHONPATH=$PYTHONPATH:$(pwd) alembic upgrade head
-
